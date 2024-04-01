@@ -1,10 +1,17 @@
-<template>
+<template>  
   <div class="md:w-1/2">
     <h2 class="font-black text-3xl text-center">Seguimiento Mascotas</h2>
     <p class="text-lg mt-5 text-center mb-10">Añade Mascotas y
       <span class="text-indigo-600 font-bold">Adminístralas</span>
     </p>
-    <form class="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
+    <Alerta
+      v-if="alerta.mensaje"
+      v-bind:alerta="alerta"
+    />
+    <form
+      class="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
+      v-on:submit.prevent="validar"
+    >
       <div class="mb-5">
         <label
           for="mascota"
@@ -15,7 +22,8 @@
           id="mascota"
           type="text"
           placeholder="Nombre de la mascota"
-          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md">
+          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+          v-model="paciente.nombre">
       </div>
 
       <div class="mb-5">
@@ -28,7 +36,8 @@
           id="propietario"
           type="text"
           placeholder="Nombre del propietario"
-          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md">
+          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+          v-model="paciente.propietario">
       </div>
 
       <div class="mb-5">
@@ -41,7 +50,8 @@
           id="email"
           type="email"
           placeholder="email"
-          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md">
+          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+          v-model="paciente.email">
       </div>
 
       <div class="mb-5">
@@ -53,7 +63,8 @@
         <input
           id="alta"
           type="date"
-          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md">
+          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+          v-model="paciente.alta">
       </div>
 
       <div class="mb-5">
@@ -65,7 +76,8 @@
         <textarea
           id="sintomas"
           placeholder="Describe los síntomas"
-          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md h-32">
+          class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md h-32"
+          v-model="paciente.sintomas">
         </textarea>
       </div>
 
@@ -78,5 +90,29 @@
 </template>
 
 <script setup>
+
+  import { reactive } from 'vue'
+  import Alerta from './Alerta.vue'
+  
+  const paciente = reactive({
+    nombre: '',
+    propietario: '',
+    email: '',
+    alta: '',
+    sintomas: ''
+  })
+
+  const alerta = reactive({
+    tipo: '',
+    mensaje: ''
+  })
+
+  const validar = () => {
+    if (Object.values(paciente).includes('')) {
+      alerta.mensaje = 'Guardado Correctamente'
+      alerta.tipo = 'exito'
+      return
+    }
+  }
 
 </script>
