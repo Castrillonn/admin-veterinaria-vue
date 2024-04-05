@@ -23,6 +23,7 @@
           type="text"
           placeholder="Nombre de la mascota"
           class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+          :value="nombre"
           @input="$emit('update:nombre', $event.target.value)"
         >
       </div>
@@ -37,6 +38,8 @@
           type="text"
           placeholder="Nombre del propietario"
           class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+          :value="propietario"
+          @input="$emit('update:propietario', $event.target.value)"
         >
       </div>
 
@@ -51,6 +54,8 @@
           type="email"
           placeholder="email"
           class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+          :value="email"
+          @input="$emit('update:email', $event.target.value)"
         >
       </div>
 
@@ -64,6 +69,8 @@
           id="alta"
           type="date"
           class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+          :value="alta"
+          @input="$emit('update:alta', $event.target.value)"
         >
       </div>
 
@@ -77,6 +84,8 @@
           id="sintomas"
           placeholder="Describe los síntomas"
           class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md h-32"
+          :value="sintomas"
+          @input="$emit('update:sintomas', $event.target.value)"
         >
         </textarea>
       </div>
@@ -99,7 +108,30 @@
     mensaje: ''
   })
 
-  defineEmits(['update:nombre'])
+  const emit = defineEmits(['update:nombre', 'update:propietario','update:email','update:alta','update:nombre', 'update:sintomas', 'guardarPaciente'])
+
+  const props = defineProps({
+    nombre: {
+      type: String,
+      required: true
+    },
+    propietario: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    alta: {
+      type: String,
+      required: true
+    },
+    sintomas: {
+      type: String,
+      required: true
+    } 
+  })
 
   const validar = () => {
     if (Object.values(paciente).includes('')) {

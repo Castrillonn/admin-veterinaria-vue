@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto mt-20">
+  <div class="container mx-auto mt-10">
     <Header />
     <div class="mt-12 md:flex">
       <Formulario 
@@ -8,6 +8,7 @@
         v-model:email="paciente.email"
         v-model:alta="paciente.alta"
         v-model:sintomas="paciente.sintomas"
+        @guardar-paciente="guardarPaciente"
       />
       <div class="md:w-1/2 md:h-screen overflow-y-scroll">
         <h3 class="font-black text-3xl text-center">Administra tus Pacientes</h3>
@@ -34,5 +35,9 @@
     alta: '',
     sintomas: ''
   })
+
+  const guardarPaciente = () => {
+    console.log('agregando paciente ---')
+  }
 
 </script>
