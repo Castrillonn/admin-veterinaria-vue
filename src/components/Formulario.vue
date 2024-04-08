@@ -108,7 +108,7 @@
     mensaje: ''
   })
 
-  const emit = defineEmits(['update:nombre', 'update:propietario','update:email','update:alta','update:nombre', 'update:sintomas', 'guardarPaciente'])
+  const emit = defineEmits(['update:nombre', 'update:propietario','update:email','update:alta','update:nombre', 'update:sintomas', 'guardar-paciente'])
 
   const props = defineProps({
     nombre: {
@@ -134,11 +134,12 @@
   })
 
   const validar = () => {
-    if (Object.values(paciente).includes('')) {
-      alerta.mensaje = 'Guardado Correctamente'
-      alerta.tipo = 'exito'
+    if (Object.values(props).includes('')) {
+      alerta.mensaje = 'Todos los campos son obligatorios'
+      alerta.tipo = 'error'
       return
     }
+    emit('guardar-paciente')
   }
 
 </script>
