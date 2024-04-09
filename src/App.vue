@@ -32,6 +32,7 @@
 
 <script setup>
   import { ref, reactive } from 'vue';
+  import { uid } from 'uid' // Se descarga un paquete de ID desde npm
   import Header from './components/Header.vue';
   import Formulario from './components/Formulario.vue';
   import Paciente from './components/Paciente.vue';
@@ -39,6 +40,7 @@
   const pacientes = ref([])
 
   const paciente = reactive({
+    id: null,
     nombre: '',
     propietario: '',
     email: '',
@@ -48,7 +50,8 @@
 
   const guardarPaciente = () => {
     pacientes.value.push({
-      ...paciente
+      ...paciente,
+      id: uid()
     })
 
     // Reiniciar pacientes
