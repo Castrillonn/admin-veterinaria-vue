@@ -9,6 +9,7 @@
         v-model:alta="paciente.alta"
         v-model:sintomas="paciente.sintomas"
         @guardar-paciente="guardarPaciente"
+        :id="paciente.id"
       />
       <div class="md:w-1/2 md:h-screen overflow-y-scroll">
         <h3 class="font-black text-3xl text-center">Administra tus Pacientes</h3>
@@ -21,6 +22,7 @@
           <Paciente 
             v-for="paciente in pacientes"
             :paciente="paciente"
+            @actualizar-paciente="actualizarPaciente"
           />
 
         </div>
@@ -49,19 +51,30 @@
   })
 
   const guardarPaciente = () => {
-    pacientes.value.push({
-      ...paciente,
-      id: uid()
+    if (paciente.id) {
+      const { id } = paciente
+      const i = pacientes.value.findIndex((pacienteState) => pacienteState.id === id )
+      pacientes.value[i] = {...paciente}
+    } else {
+      pacientes.value.push({
+        ...paciente,
+        id: uid()
+      })
+    }
+    
+    Object.assign(paciente, {
+      nombre : '',
+      propietario : '',
+      email : '',
+      alta : '',
+      sintomas : '',
+      id : null
     })
+  }
 
-    // Reiniciar pacientes
-
-    paciente.nombre = ''
-    paciente.propietario = ''
-    paciente.email = ''
-    paciente.alta = ''
-    paciente.sintomas = ''
-
+  const actualizarPaciente = (id) => {
+    const pacienteEditar = pacientes.value.filter( paciente => paciente.id === id )[0]
+    Object.assign(paciente, pacienteEditar)
   }
 
 </script>
