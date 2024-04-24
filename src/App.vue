@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-  import { ref, reactive } from 'vue';
+  import { ref, reactive, watch, onMounted } from 'vue';
   import { uid } from 'uid' // Se descarga un paquete de ID desde npm
   import Header from './components/Header.vue';
   import Formulario from './components/Formulario.vue';
@@ -50,6 +50,23 @@
     alta: '',
     sintomas: ''
   })
+
+watch(pacientes, () => {
+  guardarLocalStorage()
+}, {
+  deep: true
+})
+
+onMounted(() => {
+  const pacientesStorage = localStorage.getItem('pacientes')
+  if (pacientesStorage) {
+    pacientes.value = JSON.parse(pacientesStorage)
+  }
+})
+
+const guardarLocalStorage = () => {
+  localStorage.setItem('pacientes', JSON.stringify(pacientes.value))
+} 
 
   const guardarPaciente = () => {
     if (paciente.id) {

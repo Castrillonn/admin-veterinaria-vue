@@ -49,6 +49,7 @@
               @click="$emit('eliminar-paciente', paciente.id)"
           >Eliminar</button>
       </div>
+      <!-- hacer una seccion con 3 tarjetas? -->
   </div>
 </template>
 
